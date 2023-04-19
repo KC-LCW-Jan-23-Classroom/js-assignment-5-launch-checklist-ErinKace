@@ -19,7 +19,7 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
 function validateInput(testInput) {
 
     if(testInput === "" || testInput === null || testInput === undefined) {
-        console.log('It is on');
+        console.log('test input: '+testInput);
         return "Empty"
     } else if (!isNaN(testInput)) {
         return "Is a Number"
@@ -32,11 +32,13 @@ function validateInput(testInput) {
 function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
     if (validateInput(pilot) === "Empty" || validateInput(copilot) === "Empty" || validateInput(fuelLevel) === "Empty" || validateInput(cargoLevel) ==="Empty") {
         window.alert("All fields must be filled out.");
-        document.preventDefault();
+        event.preventDefault();
     } else if (validateInput(cargoLevel) === 'Not a Number' || validateInput(fuelLevel) === 'Not a Number') {
         window.alert("Please enter a number for Fuel Level (L) and Cargo Mass (kg)");
-        document.preventDefault();
+        event.preventDefault();
     }
+    document.getElementByID('pilotStatus').innerHTML = `${pilot}`
+    document.getElementByID('copilotStatus').innerHTML = `${copilot}`
 
 }
 
