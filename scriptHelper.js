@@ -19,7 +19,7 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
 function validateInput(testInput) {
 
     if(testInput === "" || testInput === null || testInput === undefined) {
-        console.log('test input: '+testInput);
+        // console.log('test input: '+testInput);
         return "Empty"
     } else if (!isNaN(testInput)) {
         return "Is a Number"
@@ -37,8 +37,19 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
         window.alert("Please enter a number for Fuel Level (L) and Cargo Mass (kg)");
         event.preventDefault();
     }
-    document.getElementByID('pilotStatus').innerHTML = `${pilot}`
-    document.getElementByID('copilotStatus').innerHTML = `${copilot}`
+
+    document.getElementById('pilotStatus').innerHTML += ` ${pilot}`
+    document.getElementById('copilotStatus').innerHTML += ` ${copilot}`
+    let launchStatusDiv = document.getElementById('faultyItems');
+    let launchStatusHead = document.getElementById('launchStatus');
+
+    console.log(fuelLevel);
+    if (fuelLevel < 10000) {
+        launchStatusDiv.style.visibility="visible";
+        launchStatusHead.innerHTML="Shuttle not ready for launch"
+        launchStatusHead.style.color="red"
+        console.log(launchStatusDiv);
+    }
 
 }
 
