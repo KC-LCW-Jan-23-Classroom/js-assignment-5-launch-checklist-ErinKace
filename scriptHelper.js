@@ -3,17 +3,18 @@ require('isomorphic-fetch');
 
 function addDestinationInfo(document, name, diameter, star, distance, moons, imageUrl) {
    // Here is the HTML formatting for our mission target div.
-   /*
+   let newDestination = `
                 <h2>Mission Destination</h2>
                 <ol>
-                    <li>Name: </li>
-                    <li>Diameter: </li>
+                    <li>Name:${name} </li>
+                    <li>Diameter: ${diameter} </li>
                     <li>Star: ${star}</li>
-                    <li>Distance from Earth: </li>
-                    <li>Number of Moons: </li>
+                    <li>Distance from Earth: ${distance}</li>
+                    <li>Number of Moons: ${moon}</li>
                 </ol>
-                <img src="">
-   */
+                <img src="${imageUrl}">`
+
+    document.getElementbyId('missionTarget').innerHTML = newDestination;
 }
 
 function validateInput(testInput) {
@@ -36,27 +37,15 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
     } else if (validateInput(cargoLevel) === 'Not a Number' || validateInput(fuelLevel) === 'Not a Number') {
         window.alert("Please enter a number for Fuel Level (L) and Cargo Mass (kg)");
         event.preventDefault();
-    }
-
-    document.getElementById('pilotStatus').innerHTML += ` ${pilot}`
-    document.getElementById('copilotStatus').innerHTML += ` ${copilot}`
-    let launchStatusDiv = document.getElementById('faultyItems');
-    let launchStatusHead = document.getElementById('launchStatus');
-
-    console.log(fuelLevel);
-    if (fuelLevel < 10000) {
-        launchStatusDiv.style.visibility="visible";
-        launchStatusHead.innerHTML="Shuttle not ready for launch"
-        launchStatusHead.style.color="red"
-        console.log(launchStatusDiv);
-    }
+    } 
 
 }
 
 async function myFetch() {
     let planetsReturned;
 
-    planetsReturned = await fetch().then( function(response) {
+    planetsReturned = await fetch('https://handlers.education.launchcode.org/static/planets.json').then( function(response) {
+        planetsReturned = response.json();
         });
 
     return planetsReturned;
