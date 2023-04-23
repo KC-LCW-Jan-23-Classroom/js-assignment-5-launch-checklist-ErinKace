@@ -42,16 +42,21 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
 }
 
 async function myFetch() {
-    let planetsReturned;
+    let planetsReturned=[];
 
-    planetsReturned = await fetch('https://handlers.education.launchcode.org/static/planets.json').then( function(response) {
-        planetsReturned = response.json();
+    planetsReturned = await fetch('https://handlers.education.launchcode.org/static/planets.json').then(function(response) {
+        response.json().then(function(json) {
+            return json;
         });
+    });
+    console.log(planetsReturned);
 
     return planetsReturned;
 }
 
 function pickPlanet(planets) {
+    let randomIndex = Math.floor(Math.random()*planets.length);
+    return planets[randomIndex];
 }
 
 module.exports.addDestinationInfo = addDestinationInfo;
