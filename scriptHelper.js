@@ -10,11 +10,11 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
                     <li>Diameter: ${diameter} </li>
                     <li>Star: ${star}</li>
                     <li>Distance from Earth: ${distance}</li>
-                    <li>Number of Moons: ${moon}</li>
+                    <li>Number of Moons: ${moons}</li>
                 </ol>
                 <img src="${imageUrl}">`
 
-    document.getElementbyId('missionTarget').innerHTML = newDestination;
+    document.getElementById('missionTarget').innerHTML = newDestination;
 }
 
 function validateInput(testInput) {
@@ -39,16 +39,40 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
         event.preventDefault();
     } 
 
+    fuelLevel = Number(fuelLevel);
+    cargoMass = Number(cargoMass);
+
+    document.getElementById('pilotStatus').innerHTML += ` ${pilotName}`
+    document.getElementById('copilotStatus').innerHTML += ` ${copilotName}`
+    let launchStatusDiv = document.getElementById('faultyItems');
+    let launchStatusHead = document.getElementById('launchStatus');
+    let fuelStatus = document.getElementById('fuelStatus');
+    let cargoStatus = document.getElementById('cargoStatus');
+
+    // console.log(fuelLevel);
+    if (fuelLevel < 10000) {
+        launchStatusDiv.style.visibility="visible";
+        launchStatusHead.innerHTML="Shuttle not ready for launch"
+        launchStatusHead.style.color="red"
+        fuelStatus.innerHTML="Not enough fuel for launch."
+        console.log(launchStatusDiv);
+    }
+
+    if (cargoMass > 10000) {
+        launchStatusDiv.style.visibility=visible;
+        launchStatusHead.innerHTML="Shuttle not ready for launch"
+        launchStatusHead.style.color="red"
+        cargoStatus.innerHTML="Too much mass for launch."
+    }
+
 }
 
 async function myFetch() {
     let planetsReturned=[];
 
     planetsReturned = await fetch('https://handlers.education.launchcode.org/static/planets.json').then(function(response) {
-        response.json().then(function(json) {
-            return json;
+         return response.json();
         });
-    });
     console.log(planetsReturned);
 
     return planetsReturned;
