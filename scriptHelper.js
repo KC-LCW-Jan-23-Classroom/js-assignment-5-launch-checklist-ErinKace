@@ -30,16 +30,13 @@ function validateInput(testInput) {
 
 }
 
-function formSubmission(document, event, pilot, copilot, fuelLevel, cargoLevel) {
+function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
     if (validateInput(pilot) === "Empty" || validateInput(copilot) === "Empty" || validateInput(fuelLevel) === "Empty" || validateInput(cargoLevel) ==="Empty") {
         window.alert("All fields must be filled out.");
-        event.preventDefault();
     } else if (validateInput(cargoLevel) === 'Not a Number' || validateInput(fuelLevel) === 'Not a Number') {
         window.alert("Please enter a number for Fuel Level (L) and Cargo Mass (kg)");
-        event.preventDefault();
     } else if (validateInput(pilot) === "Is a Number" || validateInput(copilot) === "Is a Number") {
         window.alert("Make sure to enter valid information for each field");
-        event.preventDefault();
     } else {
         fuelLevel = Number(fuelLevel);
         cargoLevel = Number(cargoLevel);
@@ -66,7 +63,6 @@ function formSubmission(document, event, pilot, copilot, fuelLevel, cargoLevel) 
             launchStatusHead.style.color="rgb(199, 37, 78)"
             cargoStatus.innerHTML="Too much mass for launch."
         }
-        event.preventDefault();
     }
 
 }
