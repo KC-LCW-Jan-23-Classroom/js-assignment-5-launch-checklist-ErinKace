@@ -17,6 +17,8 @@ window.addEventListener("load", function() {
    })
 
    let launchForm = document.querySelector("form");
+   let launchStatusDiv = document.getElementById('faultyItems');
+   launchStatusDiv.style.visibility="hidden";
 
    launchForm.addEventListener('submit', (event) => {
     let pilotName = document.querySelector("input[name=pilotName]").value;
